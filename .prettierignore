@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist
+build
+coverage
+
+# Misc
+.cache
+.env
+.env.*
+*.log
+
+# Version control
+.git
+.gitignore
+
+# IDE specific
+.idea
+.vscode
+
+# Public assets
+public
+static
+assets

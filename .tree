@@ -1,0 +1,25 @@
+YT
+│   .env
+│   .env.sample
+│   .gitignore
+│   .prettierignore
+│   .prettierrc
+│   .tree
+│   package-lock.json
+│   package.json
+│   Readme.md
+│
+├───public
+│   └───temp
+│       └───.gitkeep
+└───src
+    │   app.js
+    │   constants.js
+    │   index.js
+    │
+    ├───controllers
+    ├───db
+    ├───middlewares
+    ├───models
+    ├───routes
+    └───utils
