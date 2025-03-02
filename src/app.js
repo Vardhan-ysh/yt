@@ -2,11 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-export const app = express();
+const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -36,5 +36,10 @@ app.use(
   })
 );
 
-// Apply the cookie parser middleware to parse the cookies
-app.use(cookieParser());
+// routes import
+import userRouter from './routes/user.routes.js';
+
+// routes
+app.use('/users', userRouter);
+
+export { app };
