@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs/promises';
+import { ApiError } from './ApiError.js';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,18 +11,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadOnCloudinary = async (file) => {
-  if (!file?.path) {
-    throw new Error('Invalid file');
+export const uploadOnCloudinary = async (filePath) => {
+  if (!filePath) {
+    throw new ApiError(500, 'Error uploading file to Cloudinary', error);
   }
 
   try {
-    const result = await cloudinary.uploader.upload(file.path, {
+    const result = await cloudinary.uploader.upload(filePath, {
       resource_type: 'auto',
     });
 
     await fs
-      .unlink(file.path)
+      .unlink(filePath)
       .catch((err) => console.warn('Failed to delete temp file:', err));
 
     console.log('File uploaded to Cloudinary:', result.secure_url);
@@ -26,9 +30,9 @@ export const uploadOnCloudinary = async (file) => {
     return result;
   } catch (error) {
     console.error('Error uploading file to Cloudinary:', error);
-    fs.unlink(file.path).catch((err) =>
+    fs.unlink(filePath).catch((err) =>
       console.warn('Failed to delete temp file:', err)
     );
-    return null;
+    throw new ApiError(500, 'Error uploading file to Cloudinary');
   }
 };

@@ -9,6 +9,6 @@ export class ApiError extends Error {
       Error.captureStackTrace(this, ApiError);
     }
     this.message = message;
-    this.success = false;
+    this.success = success;
   }
 }
